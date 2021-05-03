@@ -19,14 +19,13 @@ def generate_stoken(path):
 
     m = hashlib.md5()
     m.update(token.encode())
-    return unknown_encrypt(m.hexdigest()), a
+    return encrypt(m.hexdigest()), a
 
 
-def unknown_encrypt(e):
+def encrypt(e):
     n = []
     t = e.upper()
     r = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-
     for o in range(int(len(t) / 2)):
         i = t[2 * o:2 * o + 2]
         num = '0x%s' % i
@@ -40,11 +39,9 @@ def unknown_encrypt(e):
         a = [0, 0, 0, 0]
         s = len(e)
         c = 0
-
         for z in range(s, 0, -1):
             if n <= 3:
                 i[n] = e[c]
-
             n += 1
             c += 1
             if 3 == n:
@@ -55,7 +52,6 @@ def unknown_encrypt(e):
                 for v in range(4):
                     t += r[a[v]]
                 n = 0
-
         if n:
             for o in range(n, 3, 1):
                 i[o] = 0
@@ -70,7 +66,6 @@ def unknown_encrypt(e):
             while n < 3:
                 t += "="
                 n += 1
-
         return t
     return convert(n).replace('+', '-').replace('/', '_').replace('=', '')
 
